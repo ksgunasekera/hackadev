@@ -5,6 +5,7 @@
  */
 package arduino;
 import com.fazecast.jSerialComm.*;
+import java.io.PrintWriter;
 /**
  *
  * @author Gunasekera
@@ -101,9 +102,22 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectDeviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectDeviceActionPerformed
-        int index=device.getSelectedIndex();
+        Arduino.portIndex=device.getSelectedIndex();
+        Arduino.chosenPort=ports1[Arduino.portIndex];
+        Arduino.chosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+        if(Arduino.chosenPort.openPort()){
+            System.out.println("Port Opened");
+            PrintWriter output=new PrintWriter(Arduino.chosenPort.getOutputStream());
+            String s=new String("");
+            output.print(new String(s));
+            output.flush();
+        }else{
+            System.out.println("Failed to Open");
+        }
+        
+       
         this.dispose();
-        new GUI1(index,ports1).setVisible(true);
+        new GUI1().setVisible(true);
     }//GEN-LAST:event_selectDeviceActionPerformed
 
     private void deviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deviceActionPerformed

@@ -15,15 +15,16 @@ import java.io.*;
  * @author Gunasekera
  */
 public class GUI1 extends javax.swing.JFrame {
-    SerialPort choosenPort;
+    //SerialPort choosenPort;
     /**
      * Creates new form GUI1
      */
     OutputStream outputStream;
-    public GUI1(int index,SerialPort ports[]) {
+    public GUI1() {
         initComponents();
-        choosenPort=ports[index];
-        deviceName.setText(ports[index].getDescriptivePortName());
+        
+        deviceName.setText(Arduino.chosenPort.getDescriptivePortName());
+        
     }
 
     /**
@@ -115,17 +116,17 @@ public class GUI1 extends javax.swing.JFrame {
 
     private void sendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessageActionPerformed
         // TODO add your handling code here:
-        choosenPort.setComPortTimeouts(SerialPort.TIMEOUT_SCANNER, 0, 0);
+        
 						
         if(message.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Enter message");
-        }else{
+        }else{/*
              if(choosenPort.openPort()){
                 System.out.println("Port opened");
             }else{
                 System.out.println("Port cannot be opened");
-            }
-              PrintWriter output=new PrintWriter(choosenPort.getOutputStream());
+            }*/
+              PrintWriter output=new PrintWriter(Arduino.chosenPort.getOutputStream());
                    String s=new String(message.getText());
                    System.out.println(s);
                    output.print(new String(s));
@@ -171,7 +172,7 @@ public class GUI1 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 SerialPort ports[]={};
-                new GUI1(0,ports).setVisible(true);
+                new GUI1().setVisible(true);
             }
         });
     }

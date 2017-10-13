@@ -12,6 +12,8 @@ import java.util.Scanner;
  * @author Gunasekera
  */
 public class Arduino {
+    public static int portIndex;
+    public static SerialPort chosenPort;
     private SerialPort ports[];
     /**
      * @param args the command line arguments
